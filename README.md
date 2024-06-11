@@ -19,13 +19,13 @@ Este projeto é um serviço web que permite a busca de informações de moedas c
 
    git clone git@github.com:Felipebellm/desafio-backend-PHP.git
 
-2. Navege para raiz do protejo
+2. Navege para raiz do projeto
 
     cd desafio-backend-PHP
 
 3. Monte o ambiente
 
-    se sua maquina tiver makefile habilitado rode o seguinte comando:
+    se sua maquina tiver Makefile habilitado rode o seguinte comando:
     
         make build
     
@@ -42,11 +42,11 @@ Este projeto é um serviço web que permite a busca de informações de moedas c
 
 ## Uso
 
-    - acesse a pagina localhost:8989
-    - inserir codigos alfanumericos e numericos na quantidade que desejar. 
+    Acesse a página localhost:8989.
+    Insira códigos alfanuméricos e numéricos na quantidade desejada. 
    
 
 ## Teste
 
-    - rodar comando:
+    Para executar os testes, use o seguinte comando:
         docker-compose exec app ./vendor/bin/phpunit
