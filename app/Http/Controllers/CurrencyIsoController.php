@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Services\CurrencyService;
+use App\Models\Currency;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
@@ -47,9 +48,26 @@ class CurrencyIsoController extends Controller
             'number_list' => 'nullable|array'
         ]);
 
-        $data = $this->currencyService->fetchCurrencyData($validatedData);
+        try {
+            $data = $this->currencyService->fetchCurrencyData($validatedData);
+        } catch (\Exception $e) {
+            return ["Falha ao tentar trazar dados da fonte: " . $e->getMessage()];
+        }
+
+        if (empty($data)) {
+            return ['Nunhum resultado encontrado na fonte'];
+        }
+        
+       
+        foreach ($data as $currencyData) {
+            Currency::updateOrCreate(
+                ['code' => $currencyData['code'], 'number' => $currencyData['number']],
+                $currencyData
+            );
+        }
 
         return response()->json($data);
+
     }
 
 }

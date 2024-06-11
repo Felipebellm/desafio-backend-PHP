@@ -23,19 +23,19 @@
         <form id="currencyForm" action="/fetch-currency" method="POST">
             @csrf
             <div class="mb-3">
-                <label for="code" class="form-label">Codes (comma separated)</label>
-                <input type="text" class="form-control" id="code" name="code" placeholder="e.g. GBP, USD, EUR">
+                <label for="code" class="form-label">Códigos Alfanuméricos (separados por virgula)</label>
+                <input type="text" class="form-control" id="code" name="code" placeholder="ex. GBP, USD, EUR">
             </div>
             <div class="mb-3">
-                <label for="number_list" class="form-label">Numbers</label>
+                <label for="number_list" class="form-label">Códigos Numéricos</label>
                 <div id="numberContainer">
                     <div class="input-group mb-2">
-                        <input type="number" class="form-control" name="number_list[]" placeholder="Enter a number">
-                        <button type="button" class="btn btn-outline-secondary" id="addNumber">Add Another Number</button>
+                        <input type="number" class="form-control" name="number_list[]" placeholder="coloque um numero">
+                        <button type="button" class="btn btn-outline-secondary" id="addNumber">Adicionar mais numeros</button>
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-primary">Pesquisar</button>
         </form>
 
         @if (isset($results))
