@@ -20,17 +20,22 @@
             </div>
         @endif
 
-        <form method="POST" action="/fetch-currency" class="mt-3">
+        <form id="currencyForm" action="/fetch-currency" method="POST">
             @csrf
-            <div class="form-group">
-                <label for="code">Código ISO (Ex: GBP):</label>
-                <input type="text" id="code" name="code" class="form-control" value="{{ old('code') }}">
+            <div class="mb-3">
+                <label for="code" class="form-label">Codes (comma separated)</label>
+                <input type="text" class="form-control" id="code" name="code" placeholder="e.g. GBP, USD, EUR">
             </div>
-            <div class="form-group">
-                <label for="number">Número ISO (Ex: 826):</label>
-                <input type="number" id="number" name="number" class="form-control" value="{{ old('number') }}">
+            <div class="mb-3">
+                <label for="number_list" class="form-label">Numbers</label>
+                <div id="numberContainer">
+                    <div class="input-group mb-2">
+                        <input type="number" class="form-control" name="number_list[]" placeholder="Enter a number">
+                        <button type="button" class="btn btn-outline-secondary" id="addNumber">Add Another Number</button>
+                    </div>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Pesquisar</button>
+            <button type="submit" class="btn btn-primary">Search</button>
         </form>
 
         @if (isset($results))
@@ -54,5 +59,23 @@
             </div>
         @endif
     </div>
+    <script>
+        document.getElementById('addNumber').addEventListener('click', function() {
+            let numberContainer = document.getElementById('numberContainer');
+            let newInputGroup = document.createElement('div');
+            newInputGroup.classList.add('input-group', 'mb-2');
+            newInputGroup.innerHTML = `
+                <input type="number" class="form-control" name="number_list[]" placeholder="Enter a number">
+                <button type="button" class="btn btn-outline-danger removeNumber">Remove</button>
+            `;
+            numberContainer.appendChild(newInputGroup);
+        });
+    
+        document.getElementById('numberContainer').addEventListener('click', function(e) {
+            if (e.target.classList.contains('removeNumber')) {
+                e.target.parentElement.remove();
+            }
+        });
+    </script>
 </body>
 </html>

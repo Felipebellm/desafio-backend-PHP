@@ -38,27 +38,31 @@ class CurrencyService
         $crawler->filter('table.wikitable')->each(function (Crawler $table) use (&$data, $params) {
            
             $table->filter('tr')->each(function (Crawler $row) use (&$data, $params) {
-                dd($row->html());
+                // dd($row->html());
                 // Adicione a lógica de extração de dados aqui
                 $cells = $row->filter('td');
                 
                 if ($cells->count() > 0) {
-                    dd($cells->html());
-                    $currencyCode = $cells->eq(0)->text();
-                    $currencyNumber = $cells->eq(1)->text();
-                    $currencyDecimal = $cells->eq(2)->text();
-                    $currencyName = $cells->eq(3)->text();
-                    $currencyLocations = $cells->eq(4)->text();
+                    $currency = [];
+                    $currency['code'] = $cells->eq(0)->text();
+                    $currency['number'] = $cells->eq(1)->text();
+                    $currency['decimal'] = $cells->eq(2)->text();
+                    $currency['name'] = $cells->eq(3)->text();
+                    $currency['location'] = $cells->eq(4)->text();
+                    dd($params);
+                    if (isset($params['code_list'])) {
+                        if (in_array($currency['code'], $params['code_list'] ?? []) ||
+                            in_array((int)$currency['number'], $params['number_list'] ?? [])) {
 
-                    if (in_array($currencyCode, $params['code_list'] ?? []) ||
-                        in_array((int)$currencyNumber, $params['number_list'] ?? [])) {
-                        $data[] = [
-                            'code' => $currencyCode,
-                            'number' => $currencyNumber,
-                            'decimal' => $currencyDecimal,
-                            'currency' => $currencyName,
-                            'currency_locations' => $currencyLocations, // Você pode precisar parsear isso conforme necessário
-                        ];
+                                dd($params);
+                            // $data[] = [
+                            //     'code' => $currencyCode,
+                            //     'number' => $currencyNumber,
+                            //     'decimal' => $currencyDecimal,
+                            //     'currency' => $currencyName,
+                            //     'currency_locations' => $currencyLocations, // Você pode precisar parsear isso conforme necessário
+                            // ];
+                        }
                     }
                 }
             });
@@ -66,4 +70,16 @@ class CurrencyService
         dd($data);
         return $data;
     }
+    public function getData ($params)
+    {
+        $data[] = [
+            'code' => $currencyCode,
+            'number' => $currencyNumber,
+            'decimal' => $currencyDecimal,
+            'currency' => $currencyName,
+            'currency_locations' => $currencyLocations, // Você pode precisar parsear isso conforme necessário
+        ];
+    }
+
+
 }
