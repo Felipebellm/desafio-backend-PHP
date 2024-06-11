@@ -36,7 +36,7 @@ class CurrencyService
      * @param array $params
      * @return array
      */
-    public function fetchCurrencyData(array $params): string
+    public function fetchCurrencyData(array $params): array
     {
         $html = $this->httpClient->get('https://pt.wikipedia.org/wiki/ISO_4217');
 

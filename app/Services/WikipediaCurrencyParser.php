@@ -33,15 +33,10 @@ class WikipediaCurrencyParser implements CurrencyParserInterface
                     if (isset($params['number_list']) && in_array($currency['number'], $params['number_list']) ||
                         isset($params['code_list']) && in_array($currency['code'], $params['code_list'])) {
                         $data[] = $this->handleData($currency);
-                    } 
-                    if (isset($params['number']) && $params['number'] === $currency['number']) {
+                    } elseif (isset($params['number']) && $params['number'] === $currency['number'] ||
+                        isset($params['code']) && $params['code'] === $currency['code']) {
                         $data[] = $this->handleData($currency);
                     } 
-                    if (isset($params['code']) && $params['code'] === $currency['code']) {
-                        $data[] = $this->handleData($currency);
-                    }
-
-
                 }
             });
         });
