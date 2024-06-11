@@ -79,5 +79,8 @@ docker-compose up -d
 
 docker-compose exec app composer install
 
+cp .env.example .env
+
+docker-compose exec app php artisan key:generate
 
 composer require guzzlehttp/guzzle symfony/dom-crawler
