@@ -74,4 +74,10 @@ composer require --dev dbrekelmans/bdi
 
 vendor/bin/bdi detect drivers -->
 
+
+docker-compose up -d
+
+docker-compose exec app composer install
+
+
 composer require guzzlehttp/guzzle symfony/dom-crawler
